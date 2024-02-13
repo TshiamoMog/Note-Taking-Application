@@ -1,7 +1,9 @@
 const notesContainer = document.getElementById("app");
 const addNoteButton = notesContainer.querySelector(".add-note");
 
-getNotes().forEach(note => {
+getNotes().sort(function(a, b) {
+    return b.createdAt - a.createdAt;
+}).forEach(note => {
     const noteElement = createNoteElement(note.id, note.content);
     notesContainer.insertBefore(noteElement, addNoteButton);
 });
