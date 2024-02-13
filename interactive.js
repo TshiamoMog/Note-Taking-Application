@@ -5,7 +5,7 @@ getNotes().sort(function(a, b) {
     return b.createdAt - a.createdAt;
 }).forEach(note => {
     const noteElement = createNoteElement(note.id, note.content);
-    notesContainer.insertBefore(noteElement, addNoteButton);
+    notesContainer.appendChild(noteElement);
 });
 
 addNoteButton.addEventListener("click", () => {
@@ -26,7 +26,6 @@ function createNoteElement(id, content) {
     element.classList.add("note");
     element.value = content;
     element.placeholder = "Empty Sticky Note";
-
     element.addEventListener("change", () => {
         updateNote(id, element.value);
     });
@@ -38,7 +37,6 @@ function createNoteElement(id, content) {
             deleteNote(id, element);
         }
     });
-
     return element;
 }
 
@@ -51,11 +49,11 @@ function addNote() {
     };
 
     const noteElement = createNoteElement(noteObject.id, noteObject.content);
-    notesContainer.insertBefore(noteElement, addNoteButton);
+    notesContainer.appendChild(noteElement);
 
     notes.push(noteObject);
     saveNotes(notes);
-
+    window.location.reload();
 }
 
 function updateNote(id, newContent) {
